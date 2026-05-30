@@ -1,0 +1,77 @@
+{
+  "skill_name": "opencode-builder",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I want to build an OpenCode plugin that sends a macOS notification whenever a session finishes. Can you show me how to do that, including the full plugin code, package.json, and where to put the files?",
+      "expected_output": "A complete notification plugin implementation with proper TypeScript types from @opencode-ai/plugin, using the session.idle hook, with osascript for macOS notifications, and proper file placement instructions (.opencode/plugins/ or ~/.config/opencode/plugins/)",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I need to programmatically create an OpenCode session, send it a prompt to analyze my codebase, and get structured JSON output back with the tech stack and entry points. Write me a Node.js script using the SDK.",
+      "expected_output": "A working script that uses createOpencodeClient or createOpencode, creates a session, sends a prompt with json_schema format for structured output, and extracts the structured_output field from the response",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want to add a custom tool to OpenCode that lets the AI check for outdated npm packages. The tool should run 'npm outdated --json' and return a nicely formatted list. Show me the complete plugin code.",
+      "expected_output": "A plugin that defines a custom tool using tool() from @opencode-ai/plugin, with proper args schema, execute function using Bun's $ shell API, parsing JSON output from npm outdated, and returning formatted results",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "How do I configure OpenCode to use my local Ollama instance for LLM inference? I want to use llama3.2 running locally. Show me the opencode.json configuration and any plugin setup needed.",
+      "expected_output": "opencode.json with a custom provider pointing to Ollama's OpenAI-compatible endpoint (http://localhost:11434/v1), using provider api type 'openai', model set to 'ollama/llama3.2', and explanation that no plugin is needed since Ollama already exposes an OpenAI-compatible API",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "I want to prevent OpenCode from ever reading .env files or any file with 'secret' in the name. Build me a plugin that blocks these reads and logs the attempts.",
+      "expected_output": "A file protection plugin using tool.execute.before hook to intercept 'read' tool calls, check filePath against blocked patterns, throw an error to block access, and log blocked attempts using client.app.log()",
+      "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "Write a Node.js script that connects to a running OpenCode server, subscribes to all events in real-time, and prints a summary whenever a session completes including how many messages were exchanged.",
+      "expected_output": "A script using createOpencodeClient with event.subscribe(), iterating the event stream, filtering for session.idle events, calling session.messages() to count messages, and printing a formatted summary",
+      "files": []
+    },
+    {
+      "id": 7,
+      "prompt": "I want to build a multi-agent workflow on OpenCode that does a security audit of my codebase. It should spawn multiple review agents in parallel, each reviewing a batch of files, then synthesize their findings into a single report. Show me the complete orchestrator code including state management with SQLite.",
+      "expected_output": "A complete OpenCodeOrchestrator class using @opencode-ai/sdk, with session spawning, parallel execution with concurrency limits, bun:sqlite for workflow state and agent tracking, checkpoint saving after each phase, and a synthesizer agent that merges findings into a markdown report",
+      "files": []
+    },
+    {
+      "id": 8,
+      "prompt": "How do I make an OpenCode workflow that can resume after a crash? I need checkpoint and resume logic so that if my orchestrator restarts, it doesn't redo work that was already completed. Show me the code.",
+      "expected_output": "Checkpoint logic using file-based or SQLite storage, saving workflowId, step number, completed agent results, and metadata after each phase. Resume function that loads checkpoint, reconciles which agents completed vs which need restart, and continues from the next step",
+      "files": []
+    },
+    {
+      "id": 9,
+      "prompt": "Build an adversarial review system on OpenCode where one agent proposes a solution and another agent tries to find flaws in it. They should iterate up to 3 rounds. The proponent refines based on criticism until the critic approves or max rounds reached. Show me the code.",
+      "expected_output": "A function that spawns two sessions (proponent and critic), runs a loop where proponent proposes, critic critiques, and a verdict is checked each round. Uses session.prompt() for back-and-forth. Tracks rounds and returns final solution with confidence score",
+      "files": []
+    },
+    {
+      "id": 10,
+      "prompt": "I need an OpenCode plugin that shows a real-time dashboard in the TUI of how many workflow agents are running, completed, and failed. It should update whenever a session goes idle. Use SQLite to track state.",
+      "expected_output": "A plugin using bun:sqlite to query agent states, session.idle hook to detect when workflow agents complete, and client.tui.showToast() to display progress. Should query workflow and agent tables to show completed/total counts",
+      "files": []
+    },
+    {
+      "id": 11,
+      "prompt": "Write a workflow script that does 'deep research' on a topic using OpenCode. It should break the topic into sub-questions, spawn parallel research agents for each sub-question, then have a synthesizer merge findings and a checker identify contradictions. Show me the complete workflow function.",
+      "expected_output": "A Workflow function that uses a planner agent to generate sub-questions, Promise.all to run parallel researcher sessions, checkpoint after each phase, synthesize function to merge findings, and a checker agent for contradiction detection",
+      "files": []
+    },
+    {
+      "id": 12,
+      "prompt": "How do I implement a worker pool pattern with OpenCode sessions? I want 5 persistent worker sessions that pick up tasks from a queue, process them, and stay alive for reuse instead of creating a new session per task.",
+      "expected_output": "A SessionPool class that pre-creates N sessions with shared context, maintains a busy/idle state per worker, queues tasks when all workers are busy, and reuses sessions across multiple tasks. Includes init(), execute(), and destroy() methods",
+      "files": []
+    }
+  ]
+}

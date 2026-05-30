@@ -1,0 +1,20 @@
+[
+  {"query": "I need to build a custom plugin for opencode that adds a new /deploy command which runs terraform apply after confirming the plan with the user. The plugin should intercept shell commands and show a TUI confirmation dialog. How do I structure the plugin manifest and which hooks do I need?", "should_trigger": true},
+  {"query": "My team is using opencode and we want to create an internal tool provider plugin that exposes our company's REST API as opencode tools. The API requires OAuth2 authentication and has rate limits. We need the plugin to handle token refresh and queue requests. What's the best architecture?", "should_trigger": true},
+  {"query": "I'm building an automated code review system on top of opencode. I want to spawn 20 parallel sessions, each reviewing a different file, then aggregate the results into a single report. I also need checkpoint/resume so if my laptop dies I don't lose progress. How do I orchestrate this with the SDK?", "should_trigger": true},
+  {"query": "I want to write a workflow script for opencode that does deep research: it searches the web, reads docs, writes findings to files, then has multiple agents cross-verify each other's work before producing the final summary. Can you show me the full orchestration pattern?", "should_trigger": true},
+  {"query": "For my opencode setup, I need to proxy all LLM requests through my company's internal gateway which adds audit logging and enforces content policies. The gateway expects a custom auth header and specific request/response format. How do I build a model provider plugin?", "should_trigger": true},
+  {"query": "I have an opencode project and I want to add structured output support so that when I ask for data extraction, the model always returns valid JSON matching my schema. I also want retry logic with exponential backoff when the model returns malformed JSON. SDK example please?", "should_trigger": true},
+  {"query": "We're building a monitoring dashboard plugin for opencode that shows real-time status of all active sessions, their token usage, and which files are being edited. It should use the TUI hooks to render a live sidebar. What's the plugin architecture?", "should_trigger": true},
+  {"query": "I need to integrate opencode into our CI pipeline. When a PR is opened, opencode should automatically review the diff, post comments on the PR, and if tests fail, diagnose the issue and suggest fixes. This needs to run headlessly via the SDK. How do I set this up?", "should_trigger": true},
+  {"query": "How do I change the color scheme in the opencode TUI? I want a custom theme with my brand colors.", "should_trigger": false},
+  {"query": "My opencode keeps crashing when I open large repos. Is there a config option to increase memory limits?", "should_trigger": false},
+  {"query": "What's the difference between opencode and claude code? Which one should I use for my startup?", "should_trigger": false},
+  {"query": "Can you write a Python script that uses the OpenAI API to generate images? I want to create a batch processing pipeline.", "should_trigger": false},
+  {"query": "I need help setting up GitHub Copilot in VS Code. The suggestions are too slow.", "should_trigger": false},
+  {"query": "Write a React component that displays a chat interface. It should support markdown rendering and code syntax highlighting.", "should_trigger": false},
+  {"query": "How do I configure my neovim LSP for TypeScript? I'm getting errors about missing types.", "should_trigger": false},
+  {"query": "Explain the difference between Docker Compose and Kubernetes. When should I use each?", "should_trigger": false},
+  {"query": "I have a Next.js app and I want to add server-side rendering for a dashboard page that fetches data from Postgres.", "should_trigger": false},
+  {"query": "Help me debug this Python asyncio issue. My coroutines are hanging and I don't know why.", "should_trigger": false}
+]

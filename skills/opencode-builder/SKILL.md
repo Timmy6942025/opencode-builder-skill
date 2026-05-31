@@ -258,7 +258,7 @@ const dirs = await client.find.files({
 })
 
 // Find workspace symbols
-const symbols = await client.find.symbol({
+const symbols = await client.find.symbols({
   query: { query: "UserService" },
 })
 
@@ -556,6 +556,33 @@ export const CustomToolsPlugin: Plugin = async (ctx) => {
 - `.describe("help text")` — add field descriptions
 
 **Tool precedence:** Plugin tools override built-in tools with the same name.
+
+### Standalone Custom Tools (`.opencode/tools/`)
+
+You can also define custom tools as standalone TypeScript/JS files in `.opencode/tools/`. These are loaded automatically without needing a plugin wrapper:
+
+```
+.opencode/tools/
+  my-tool.ts
+  another-tool.js
+```
+
+```typescript
+// .opencode/tools/my-tool.ts
+import { tool } from "@opencode-ai/plugin"
+
+export default tool({
+  description: "A standalone custom tool",
+  args: {
+    query: tool.schema.string().describe("Input query"),
+  },
+  async execute(args, context) {
+    return `Result for: ${args.query}`
+  },
+})
+```
+
+Standalone tools are simpler for single-function tools where you don't need lifecycle hooks or plugin context. For more complex tools that need access to the plugin context (`$`, `client`, `directory`), use plugin-defined tools instead.
 
 ### Event Hook Pattern
 
@@ -872,12 +899,11 @@ import { readFile, writeFile } from "node:fs/promises"
 
 const USAGE_FILE = "/tmp/opencode-usage.json"
 
-export const RateLimitPlugin: Plugin = async () => {
+export const UsagePlugin: Plugin = async () => {
   return {
-    "tool.execute.before": async (input, output) => {
-      if (input.tool !== "session.prompt") return
-      const data = JSON.parse(await readFile(USAGE_FILE, "utf-8").catch(() => '{"count":0}'))
-      data.count++
+    "tool.execute.after": async (input, output) => {
+      const data = JSON.parse(await readFile(USAGE_FILE, "utf-8").catch(() => '{"tools":{}}'))
+      data.tools[input.tool] = (data.tools[input.tool] ?? 0) + 1
       await writeFile(USAGE_FILE, JSON.stringify(data))
     },
   }

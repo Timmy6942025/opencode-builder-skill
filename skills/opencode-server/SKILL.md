@@ -22,7 +22,7 @@ opencode serve [--port <number>] [--hostname <string>] [--mdns] [--mdns-domain <
 
 | Flag | Description | Default |
 |------|-------------|---------|
-| `--port` | Port to listen on | `4096` |
+| `--port` | Port to listen on | `0 (random available port)` |
 | `--hostname` | Hostname to listen on | `127.0.0.1` |
 | `--mdns` | Enable mDNS discovery | `false` |
 | `--mdns-domain` | Custom domain name for mDNS service | `opencode.local` |
@@ -356,6 +356,9 @@ Respond to a pending permission request. Body:
 | `POST` | `/session/:id/prompt_async` | Send a message asynchronously (no wait) | `204 No Content` |
 | `POST` | `/session/:id/command` | Execute a slash command | `{ info: Message, parts: Part[] }` |
 | `POST` | `/session/:id/shell` | Run a shell command | `{ info: Message, parts: Part[] }` |
+| `DELETE` | `/session/:id/message/:messageID` | Delete a specific message | `boolean` |
+| `DELETE` | `/session/:id/message/:messageID/part/:partID` | Delete a specific message part | `boolean` |
+| `PATCH` | `/session/:id/message/:messageID/part/:partID` | Update a specific message part | `Part` |
 
 #### `GET /session/:id/message`
 
@@ -420,6 +423,26 @@ Run a shell command within the session context. Body:
 ```
 
 Returns the assistant message with tool call results.
+
+#### `DELETE /session/:id/message/:messageID`
+
+Delete a specific message from a session. This permanently removes the message and all its parts.
+
+#### `DELETE /session/:id/message/:messageID/part/:partID`
+
+Delete a specific part within a message. Removes only the specified part (e.g., a single tool call or text chunk).
+
+#### `PATCH /session/:id/message/:messageID/part/:partID`
+
+Update a specific message part. Body:
+
+```json
+{
+  "text": "Updated text content"
+}
+```
+
+Allows modifying the content of a specific part within a message.
 
 ---
 
@@ -627,11 +650,197 @@ Responds to a pending control request obtained from `/tui/control/next`.
 
 ---
 
+### PTY (Terminal Pseudoterminal)
+
+| Method | Path | Description | Response |
+|--------|------|-------------|----------|
+| `GET` | `/pty` | List all PTY sessions | `PTY[]` |
+| `POST` | `/pty` | Create a new PTY session | `PTY` |
+| `DELETE` | `/pty` | Close all PTY sessions | `boolean` |
+| `GET` | `/pty/shells` | List available shells | `string[]` |
+| `GET` | `/pty/:ptyID` | Get PTY session details | `PTY` |
+| `PUT` | `/pty/:ptyID` | Update PTY session properties | `PTY` |
+| `DELETE` | `/pty/:ptyID` | Close a PTY session | `boolean` |
+| `GET` | `/pty/:ptyID/connect` | Connect to a PTY via SSE stream | Event stream |
+| `POST` | `/pty/:ptyID/connect-token` | Generate a connection token for PTY | `ConnectToken` |
+
+#### `POST /pty`
+
+Create a new PTY session. Body:
+
+```json
+{
+  "shell": "/bin/zsh",
+  "cols": 80,
+  "rows": 24
+}
+```
+
+#### `GET /pty/:ptyID/connect`
+
+Server-Sent Events stream for bidirectional terminal I/O. Use the connection token from `/pty/:ptyID/connect-token` to authenticate.
+
+#### `POST /pty/:ptyID/connect-token`
+
+Generate a short-lived token for connecting to the PTY session. Returns a token object with expiry.
+
+---
+
+### Permission
+
+| Method | Path | Description | Response |
+|--------|------|-------------|----------|
+| `GET` | `/permission` | List pending permission requests | `Permission[]` |
+| `POST` | `/permission/:requestID/reply` | Reply to a permission request | `boolean` |
+
+#### `GET /permission`
+
+Returns all pending permission requests that require user approval (e.g., file writes, shell commands).
+
+#### `POST /permission/:requestID/reply`
+
+Reply to a pending permission request. Body:
+
+```json
+{
+  "response": "allow",
+  "remember": true
+}
+```
+
+Response values: `allow`, `deny`. The `remember` flag persists the decision for future requests of the same type.
+
+---
+
+### Question
+
+| Method | Path | Description | Response |
+|--------|------|-------------|----------|
+| `GET` | `/question` | List pending questions | `Question[]` |
+| `POST` | `/question/:requestID/reply` | Reply to a question | `boolean` |
+| `POST` | `/question/:requestID/reject` | Reject/dismiss a question | `boolean` |
+
+#### `GET /question`
+
+Returns all pending questions from the AI that require user input.
+
+#### `POST /question/:requestID/reply`
+
+Reply to a pending question. Body:
+
+```json
+{
+  "response": "Your answer here"
+}
+```
+
+#### `POST /question/:requestID/reject`
+
+Reject or dismiss a pending question without answering.
+
+---
+
+### Skill
+
+| Method | Path | Description | Response |
+|--------|------|-------------|----------|
+| `GET` | `/skill` | List all available skills | `Skill[]` |
+
+Returns all registered skills with their metadata and descriptions.
+
+---
+
+### Sync
+
+| Method | Path | Description | Response |
+|--------|------|-------------|----------|
+| `POST` | `/sync/history` | Sync conversation history | `boolean` |
+| `POST` | `/sync/replay` | Replay events to restore state | `boolean` |
+| `POST` | `/sync/start` | Start sync session | `boolean` |
+| `POST` | `/sync/steal` | Steal/takeover a session from another client | `boolean` |
+
+#### `POST /sync/history`
+
+Synchronize conversation history between clients. Used when a new client connects and needs to catch up.
+
+#### `POST /sync/replay`
+
+Replay stored events to bring a client up to date with the current server state.
+
+#### `POST /sync/steal`
+
+Take control of a session from another connected client. The other client receives a disconnect notification.
+
+---
+
+### Workspace (Experimental)
+
+| Method | Path | Description | Response |
+|--------|------|-------------|----------|
+| `GET` | `/experimental/workspace` | List workspaces | `Workspace[]` |
+| `POST` | `/experimental/workspace` | Create a workspace | `Workspace` |
+| `GET` | `/experimental/workspace/adapter` | Get workspace adapter info | `Adapter` |
+| `GET` | `/experimental/workspace/:id/status` | Get workspace status | `WorkspaceStatus` |
+| `POST` | `/experimental/workspace/sync-list` | Sync workspace file list | `boolean` |
+| `POST` | `/experimental/workspace/warp` | Warp to a workspace location | `boolean` |
+| `DELETE` | `/experimental/workspace/:id` | Delete a workspace | `boolean` |
+
+#### `POST /experimental/workspace`
+
+Create a new workspace. Body:
+
+```json
+{
+  "name": "my-workspace",
+  "path": "/path/to/workspace"
+}
+```
+
+#### `POST /experimental/workspace/warp`
+
+Navigate to a specific location within the workspace. Body:
+
+```json
+{
+  "path": "src/index.ts",
+  "line": 42
+}
+```
+
+---
+
+### Worktree (Experimental)
+
+| Method | Path | Description | Response |
+|--------|------|-------------|----------|
+| `GET` | `/experimental/worktree` | List git worktrees | `Worktree[]` |
+| `POST` | `/experimental/worktree` | Create a worktree | `Worktree` |
+| `DELETE` | `/experimental/worktree` | Delete worktrees | `boolean` |
+| `POST` | `/experimental/worktree/reset` | Reset a worktree to clean state | `boolean` |
+
+#### `POST /experimental/worktree`
+
+Create a new git worktree. Body:
+
+```json
+{
+  "branch": "feature/my-branch",
+  "path": "/path/to/worktree"
+}
+```
+
+#### `POST /experimental/worktree/reset`
+
+Reset a worktree to a clean state, discarding all uncommitted changes.
+
+---
+
 ### Auth
 
 | Method | Path | Description | Response |
 |--------|------|-------------|----------|
 | `PUT` | `/auth/:id` | Set authentication credentials | `boolean` |
+| `DELETE` | `/auth/:providerID` | Remove authentication credentials | `boolean` |
 
 Body must match the provider's auth schema. Example:
 

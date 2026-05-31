@@ -259,6 +259,47 @@ jobs:
             Otherwise, do not comment.
 ```
 
+### Manual Trigger (workflow_dispatch)
+
+Trigger OpenCode on demand from the GitHub Actions UI. Useful for running tasks manually without writing a comment or waiting for a scheduled run.
+
+```yaml
+name: Manual OpenCode Task
+on:
+  workflow_dispatch:
+    inputs:
+      prompt:
+        description: 'Task for OpenCode to perform'
+        required: true
+        type: string
+      model:
+        description: 'Model to use'
+        required: false
+        default: 'anthropic/claude-sonnet-4-20250514'
+        type: string
+jobs:
+  opencode:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
+      pull-requests: write
+      issues: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Run OpenCode
+        uses: anomalyco/opencode/github@latest
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        with:
+          model: ${{ inputs.model || 'anthropic/claude-sonnet-4-20250514' }}
+          prompt: ${{ inputs.prompt }}
+```
+
 ## Custom Prompts
 
 Override the default prompt to customize OpenCode's behavior for your workflow. This is useful for enforcing specific review criteria, coding standards, or focus areas relevant to your project.
@@ -266,7 +307,7 @@ Override the default prompt to customize OpenCode's behavior for your workflow. 
 ```yaml
 - uses: anomalyco/opencode/github@latest
   with:
-    model: anthropic/claude-sonnet-4-5
+    model: anthropic/claude-sonnet-4-20250514
     prompt: |
       Review this pull request:
       - Check for code quality issues

@@ -74,7 +74,7 @@ OpenCode Zen is a curated list of tested and verified models provided by the Ope
 | Gemini 3.5 Flash | $1.50 | $9.00 | $0.15 |
 | Kimi K2.5 | $0.60 | $3.00 | $0.10 |
 | MiniMax M2.7 | $0.30 | $1.20 | $0.06 |
-| Qwen3.6 Plus | $0.50 | $3.00 | $0.05 |
+| Qwen3.6 Plus | $0.20 | $1.20 | $0.02 |
 | GPT 5 Nano | $0.05 | $0.40 | $0.005 |
 
 **Features:**
@@ -106,11 +106,24 @@ OpenCode Go is a low-cost subscription plan for popular open coding models.
 3. Paste API key in terminal
 4. Run `/models` to see available models
 
-**Available models (request estimates):**
+**Usage limits:**
+- 5 hour limit: $12
+- Weekly limit: $30
+- Monthly limit: $60
+
+**Available models:**
+- GLM-5
+- GLM-5.1
+- Kimi K2.5
+- Kimi K2.6
+- MiMo-V2.5
+- MiMo-V2.5-Pro
+- MiniMax M2.5
+- MiniMax M2.7
+- Qwen3.6 Plus
+- Qwen3.7 Max
 - DeepSeek V4 Pro
-- Kimi K2 Instruct
-- Qwen 3 Coder 480B
-- Various open-source coding models
+- DeepSeek V4 Flash
 
 ---
 
@@ -153,6 +166,27 @@ Supports ChatGPT Plus/Pro OAuth and API keys.
 3. Run `/models` to select model
 
 **Using API keys:** Select **Manually enter API Key** and paste your key.
+
+### xAI
+
+Supports SuperGrok OAuth, device-code flow, and API keys.
+
+**Auth Method 1 — SuperGrok OAuth (browser):**
+1. Run `/connect`, select **xAI**
+2. Select **xAI Grok OAuth (SuperGrok Subscription)**
+3. Browser opens for consent
+
+**Auth Method 2 — SuperGrok device-code (headless/VPS):**
+1. Run `/connect`, select **xAI**
+2. Select **xAI Grok OAuth (Headless/Remote/VPS)**
+3. Visit the verification URL on another device and enter the displayed code
+
+**Auth Method 3 — API key:**
+1. Create API key at [console.x.ai](https://console.x.ai)
+2. Run `/connect`, select **xAI**
+3. Select **Manually enter API Key** and paste your key
+
+**Available models:** Grok Beta and others.
 
 ### GitHub Copilot
 

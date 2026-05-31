@@ -134,18 +134,19 @@ OpenCode stores persistent application data on disk, including authentication cr
 
 | Path | Description |
 |------|-------------|
-| `auth.json` | Authentication data — API keys, OAuth tokens, provider credentials |
+| `opencode.db` | SQLite database — primary data store for sessions, messages, and state |
+| `snapshot/` | Git-like repo for file change tracking |
+| `storage/` | Session data and internal state |
 | `log/` | Application log files (see [Logs](#logs)) |
-| `project/` | Project-specific data — sessions, messages, conversation history |
 
-### Per-Project Storage
+### Additional Data Directories
 
-Project data is organized under the `project/` directory. The storage path depends on whether the project is in a Git repository:
+OpenCode also uses these directories for different purposes:
 
-- **Git repo projects**: `~/.local/share/opencode/project/<project-slug>/storage/`
-- **Non-Git projects**: `~/.local/share/opencode/project/global/storage/`
-
-The `<project-slug>` is derived from the repository or directory name (typically lowercase, hyphens for spaces).
+| Directory | Description |
+|-----------|-------------|
+| `~/.local/state/opencode/` | Runtime state — `model.json`, `prompt-history.jsonl`, `kv.json` |
+| `~/.cache/opencode/` | Provider packages, binaries, and cached data |
 
 ### Clearing Storage
 
@@ -398,7 +399,7 @@ opencode
 4. **Verify stored credentials:**
 
 ```bash
-opencode auth list
+opencode providers list
 ```
 
 ### Model Not Available
@@ -534,10 +535,10 @@ Displays the fully merged configuration from all sources (remote, global, projec
 ### Check Credentials
 
 ```bash
-opencode auth list
+opencode providers list
 ```
 
-Lists all stored authentication credentials. Shows which providers have active API keys or tokens.
+Lists all stored authentication credentials. Shows which providers have active API keys or tokens. (`auth` is an alias for `providers`.)
 
 ### List Available Models
 
@@ -569,6 +570,14 @@ Streams log output directly to stdout instead of writing to files. Useful when:
 - Log files aren't being created (permissions issue)
 - You need real-time output for debugging
 - The process crashes before writing logs
+
+### Run Without Plugins
+
+```bash
+opencode --pure
+```
+
+Runs OpenCode without loading any external plugins. Useful for troubleshooting plugin-related issues — if the problem disappears with `--pure`, a plugin is the cause. See [Disable Plugins](#disable-plugins) for more.
 
 ---
 

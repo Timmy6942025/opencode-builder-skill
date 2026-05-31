@@ -1,41 +1,76 @@
-# opencode-builder
+# OpenCode Agent Skills
 
-A Kilo/agent skill for building extensions, plugins, integrations, and custom developer tools on top of [OpenCode](https://opencode.ai).
+A comprehensive collection of **14 agent skills** for building on top of [OpenCode](https://opencode.ai) — the open-source AI coding agent. These skills cover everything from plugin development and SDK usage to configuration, providers, MCP servers, agents, tools, and more.
 
-## What This Skill Covers
+Compatible with OpenCode, Kilo, Claude Code, Cursor, Codex, and any tool that supports the open [Agent Skills](https://agentskills.io/) standard.
 
-- **SDK Path** — Programmatic control via `@opencode-ai/sdk` for external apps, scripts, and services
-- **Plugin Path** — Extending OpenCode's behavior with `@opencode-ai/plugin`
-- **Configuration** — `opencode.json` schema and TypeScript config
-- **Common Patterns** — Background services, notifications, file protection, MCP, custom model providers
-- **Advanced Orchestration** — Multi-agent workflows, parallel execution, checkpoint/resume, adversarial review
-- **Debugging** — Troubleshooting plugins, SDK connections, TypeScript errors
+## What's Included
+
+| Skill | Description |
+|-------|-------------|
+| `opencode-builder` | Core skill for building extensions, plugins, and integrations on OpenCode |
+| `opencode-config` | Complete configuration guide: opencode.json, tui.json, precedence, variables, managed settings |
+| `opencode-providers` | All 75+ LLM providers, custom providers, OpenCode Zen, OpenCode Go, local models |
+| `opencode-mcp` | Model Context Protocol servers: local/remote, OAuth, tool management |
+| `opencode-agents` | Agent system: primary/subagents, configuration, permissions, markdown agents |
+| `opencode-tools` | Built-in tools, custom tools, permission system, tool internals |
+| `opencode-plugins` | Plugin hooks, events, loading, dependencies, real-world patterns |
+| `opencode-sdk` | JavaScript/TypeScript SDK: sessions, files, TUI, events, structured output |
+| `opencode-server` | HTTP server, API endpoints, web interface, mDNS discovery |
+| `opencode-github` | GitHub Actions integration: issue triage, PR review, CI/CD workflows |
+| `opencode-commands` | Custom slash commands: markdown/JSON, arguments, shell output injection |
+| `opencode-permissions` | Granular permission system: wildcards, bash rules, external directories |
+| `opencode-troubleshooting` | Logs, storage, common issues, debugging tools |
+| `opencode-skills` | Agent Skills system: SKILL.md format, discovery, writing, publishing |
 
 ## Installation
 
-### For Kilo
-Copy the `SKILL.md` and `references/` directory to your `.agents/skills/opencode-builder/` directory.
+### For OpenCode / Kilo
 
-### For Claude Code / Claude.ai
-Copy the `SKILL.md` file to your project's `.claude/skills/` directory.
+Copy the skills you want to your `.agents/skills/` or `.opencode/skills/` directory:
 
-## Usage
+```bash
+# Example: install the builder skill
+cp -r skills/opencode-builder ~/.agents/skills/
+```
 
-This skill is automatically triggered when you ask about:
-- Building OpenCode plugins
-- Using the OpenCode SDK
-- Creating MCP integrations for OpenCode
-- Configuring opencode.json
-- Advanced OpenCode orchestration patterns
+### For Claude Code
 
-## Reference Files
+Copy to your `.claude/skills/` directory:
 
-| File | Description |
-|------|-------------|
-| `references/sdk-api.md` | SDK API documentation |
-| `references/plugin-reference.md` | Plugin architecture reference |
-| `references/examples.md` | Code examples and patterns |
-| `references/advanced-orchestration.md` | Multi-agent workflow patterns |
+```bash
+cp -r skills/opencode-builder .claude/skills/
+```
+
+### For Cursor / Codex / Other Agents
+
+Copy to your agent's skills directory. Each skill is independent — install only what you need.
+
+## Skill Structure
+
+Each skill follows the standard Agent Skills format:
+
+```
+skills/
+├── opencode-builder/
+│   └── SKILL.md
+├── opencode-config/
+│   └── SKILL.md
+├── opencode-providers/
+│   └── SKILL.md
+└── ...
+```
+
+Every `SKILL.md` includes:
+- YAML frontmatter with name and description
+- Comprehensive documentation
+- Practical code examples
+- Configuration references
+- Best practices and troubleshooting
+
+## Source
+
+All documentation is sourced from the official [OpenCode docs](https://opencode.ai/docs/) and verified against the latest version.
 
 ## License
 

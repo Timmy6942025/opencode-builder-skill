@@ -6,6 +6,9 @@ description: |
 
 # OpenCode Tools
 
+> **📚 Official Docs:** For the latest information, always refer to the official documentation:
+> [https://opencode.ai/docs/tools/](https://opencode.ai/docs/tools/) and [https://opencode.ai/docs/custom-tools/](https://opencode.ai/docs/custom-tools/)
+
 OpenCode provides a set of built-in tools that let LLMs interact with your codebase. You can extend functionality with [custom tools](#custom-tools) or [MCP server integrations](#mcp-tools). All tools are **enabled** by default and don't require permission unless configured otherwise.
 
 Tools allow the LLM to perform actions: reading files, editing code, running shell commands, searching content, fetching web pages, asking questions, and more. Permissions control which actions require approval.

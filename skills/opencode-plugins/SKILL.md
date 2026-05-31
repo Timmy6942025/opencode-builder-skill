@@ -6,6 +6,9 @@ description: |
 
 # OpenCode Plugins
 
+> **📚 Official Docs:** For the latest information, always refer to the official documentation:
+> [https://opencode.ai/docs/plugins/](https://opencode.ai/docs/plugins/)
+
 Write your own plugins to extend OpenCode. Plugins hook into events, customize behavior, add custom tools, and integrate with external services.
 
 ---

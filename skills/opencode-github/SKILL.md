@@ -1,5 +1,8 @@
 # OpenCode GitHub Integration Skill
 
+> **📚 Official Docs:** For the latest information, always refer to the official documentation:
+> [https://opencode.ai/docs/github/](https://opencode.ai/docs/github/)
+
 ## Overview
 
 This skill covers OpenCode's GitHub integration, enabling you to use OpenCode directly within GitHub issues and pull requests. OpenCode integrates with your GitHub workflow — mention `/opencode` or `/oc` in your comment, and OpenCode will execute tasks within your GitHub Actions runner.

@@ -6,6 +6,9 @@ description: |
 
 # OpenCode Troubleshooting
 
+> **📚 Official Docs:** For the latest information, always refer to the official documentation:
+> [https://opencode.ai/docs/troubleshooting/](https://opencode.ai/docs/troubleshooting/)
+
 OpenCode is an AI-powered coding assistant available as a CLI, TUI, web interface, and desktop app. When something goes wrong — the app won't start, models fail to load, authentication breaks, or the UI is unresponsive — this skill provides comprehensive diagnostic and resolution procedures. Start by checking logs and storage, then work through the specific issue category.
 
 ---

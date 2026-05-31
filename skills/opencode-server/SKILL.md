@@ -6,6 +6,9 @@ description: |
 
 # OpenCode Server
 
+> **📚 Official Docs:** For the latest information, always refer to the official documentation:
+> [https://opencode.ai/docs/server/](https://opencode.ai/docs/server/)
+
 OpenCode exposes a headless HTTP server that implements a full REST API and publishes an OpenAPI 3.1 specification. The TUI is a client that talks to this server. The server enables multiple clients (TUI, web, IDE plugins, custom integrations) to control OpenCode programmatically.
 
 ---

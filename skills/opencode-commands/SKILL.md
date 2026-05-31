@@ -1,5 +1,8 @@
 # OpenCode Custom Commands
 
+> **📚 Official Docs:** For the latest information, always refer to the official documentation:
+> [https://opencode.ai/docs/commands/](https://opencode.ai/docs/commands/)
+
 Expert skill for building, configuring, and troubleshooting OpenCode's custom command system. Covers markdown command files, JSON configuration, prompt placeholders, command options, built-in commands, keybinds, and overriding built-ins.
 
 ## Overview

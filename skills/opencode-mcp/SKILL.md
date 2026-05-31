@@ -6,6 +6,9 @@ description: |
 
 # OpenCode MCP Servers
 
+> **📚 Official Docs:** For the latest information, always refer to the official documentation:
+> [https://opencode.ai/docs/mcp-servers/](https://opencode.ai/docs/mcp-servers/)
+
 Add local and remote MCP tools to OpenCode using the *Model Context Protocol* (MCP). MCP is a standard protocol that lets you connect external tool servers to AI applications. OpenCode supports both local servers (child processes) and remote servers (HTTP). Once added, MCP tools are automatically available to the LLM alongside OpenCode's built-in tools.
 
 ---

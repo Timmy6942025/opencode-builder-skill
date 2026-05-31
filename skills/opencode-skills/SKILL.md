@@ -3,6 +3,11 @@ name: opencode-skills
 description: Create, configure, and troubleshoot OpenCode agent skills (SKILL.md definitions). Covers file locations, discovery, frontmatter spec, permissions, per-agent overrides, and publishing.
 ---
 
+# OpenCode Skills
+
+> **📚 Official Docs:** For the latest information, always refer to the official documentation:
+> [https://opencode.ai/docs/skills/](https://opencode.ai/docs/skills/)
+
 ## Overview
 
 OpenCode agent skills are reusable instruction sets defined as `SKILL.md` files. Agents see available skills listed in the `skill` tool description and can load full content on demand by calling the skill tool. Skills let you encapsulate domain knowledge, workflows, and best practices that agents can discover and use without bloating every conversation with their full content.

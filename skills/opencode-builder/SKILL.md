@@ -6,6 +6,9 @@ description: |
 
 # OpenCode Builder
 
+> **📚 Official Docs:** For the latest information, always refer to the official documentation:
+> For the latest SDK docs: [https://opencode.ai/docs/sdk/](https://opencode.ai/docs/sdk/). For plugins: [https://opencode.ai/docs/plugins/](https://opencode.ai/docs/plugins/).
+
 A comprehensive skill for building on top of [OpenCode](https://opencode.ai) — an AI-powered coding assistant. This skill covers both the **JavaScript/TypeScript SDK** for programmatic control and the **plugin architecture** for extending OpenCode's behavior.
 
 ---

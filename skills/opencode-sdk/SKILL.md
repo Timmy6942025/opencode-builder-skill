@@ -6,6 +6,9 @@ description: |
 
 # OpenCode JavaScript/TypeScript SDK (`@opencode-ai/sdk`)
 
+> **📚 Official Docs:** For the latest information, always refer to the official documentation:
+> [https://opencode.ai/docs/sdk/](https://opencode.ai/docs/sdk/)
+
 Type-safe JavaScript/TypeScript client for the OpenCode server. Use it to build integrations, automate workflows, and control OpenCode programmatically.
 
 All types are auto-generated from the server's OpenAPI 3.1 specification and available in the [types file](https://github.com/anomalyco/opencode/blob/dev/packages/sdk/js/src/gen/types.gen.ts).

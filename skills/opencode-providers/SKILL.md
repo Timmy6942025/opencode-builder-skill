@@ -6,6 +6,9 @@ description: |
 
 # OpenCode Providers
 
+> **📚 Official Docs:** For the latest information, always refer to the official documentation:
+> [https://opencode.ai/docs/providers/](https://opencode.ai/docs/providers/)
+
 ## Overview
 
 OpenCode uses the [AI SDK](https://ai-sdk.dev/) and [Models.dev](https://models.dev) to support **75+ LLM providers** and local models. Providers are configured through `opencode.json` and authenticated via the `/connect` command.

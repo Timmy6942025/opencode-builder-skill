@@ -6,6 +6,9 @@ description: |
 
 # OpenCode Configuration
 
+> **📚 Official Docs:** For the latest information, always refer to the official documentation:
+> [https://opencode.ai/docs/config/](https://opencode.ai/docs/config/)
+
 OpenCode uses JSON-based configuration files to control runtime behavior, TUI appearance, server settings, tool permissions, agent definitions, and provider connections. This skill covers every aspect of configuration: file format, locations, precedence, merging, all available fields, TUI config, variable substitution, enterprise managed settings, environment variables, and troubleshooting.
 
 ---

@@ -6,6 +6,9 @@ description: |
 
 # OpenCode Agents — Complete Reference
 
+> **📚 Official Docs:** For the latest information, always refer to the official documentation:
+> [https://opencode.ai/docs/agents/](https://opencode.ai/docs/agents/)
+
 OpenCode supports a multi-agent architecture where specialized AI assistants handle different aspects of development. Agents come in two types — **primary agents** (direct user interaction, switchable via Tab) and **subagents** (invoked by other agents or via `@mention`/Task tool). There are also **hidden agents** (internal-use only, not user-selectable).
 
 This guide covers every agent type, all built-in agents, every configuration option, the complete permission system, and how to create custom agents.
